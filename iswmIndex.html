@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ISWM Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* .glass {
+      backdrop-filter: blur(300%);
+      background-color: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 40px rgba(0, 255, 170, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    } */
+   .glass {
+      background-color: rgba(22, 30, 49, 0.85); /* dark slate with opacity */
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 20px rgba(0, 255, 170, 0.05);
+    }
+    .fade-in {
+      animation: fadeInUp 1s ease-in-out forwards;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .neon-text {
+      color: #00ffc3;
+      text-shadow: 0 0  #00ffc3, 0 0  #00ffc3, 0 0  #00ffc3;
+    }
+
+    .btn-hover:hover {
+      box-shadow: 0 0 1px #00ffc3, 0 0 4px #00ffc3;
+    }
+    
+    .reflect {
+      background: linear-gradient(120deg, rgb(233, 212, 223), rgb(224, 219, 219));
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      transform: skewX(-25deg);
+      animation: slide 4s infinite;
+      pointer-events: none;
+    }
+
+    @keyframes slide {
+      0% {
+        left: -75%;
+      }
+      100% {
+        left: 125%;
+      }
+    }
+  </style>
+</head>
+<body class="relative flex items-center justify-center px-4 py-12 text-white font-sans" style="background-image: url('https://images.unsplash.com/photo-1557224651-e96a58962468?q=80&amp;w=1170&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center;">
+  <div class="w-full max-w-4xl h-[50h] grid grid-cols-1 md:grid-cols-2  fade-in">
+    <!-- Left Panel -->
+     <div class="absolute inset-0 overflow-hidden z-0">
+    <div class="reflect"></div>
+  </div>
+
+    <div class="glass flex flex-col justify-center p-10">
+       <!-- Logos Section -->
+      <div class="absolute top-4 left-4 flex gap-4">
+        <img src="logo-2.png" alt="Logo 1" class="h-12 w-auto" />
+        <img src="logo-3.png" alt="Logo 2" class="h-12 w-auto" />
+      </div>
+      <h1 class="text-4xl font-bold neon-text mb-6 mt-10">Welcome to ISWM</h1>
+      <p class="text-gray-300 mb-6 text-lg leading-relaxed">
+        Integrated Solid Waste Management System to efficiently monitor, manage, and improve urban cleanliness. Designed with innovation and impact.
+      </p>
+     
+      <p class="text-center mt-10">
+        Designed and Developed by 
+      <img src="logo-1.png" style="width: 40%; margin-left: 100px;"></p>
+    </div>
+
+    <!-- Right Login Box -->
+    <div class="glass p-10 flex flex-col justify-center h-full">
+      <h2 class="text-3xl font-bold mb-8 neon-text">Login</h2>
+      <form action="#" method="post" class="space-y-6">
+        <div>
+          <label for="username" class="block text-sm text-gray-300 mb-1">Username</label>
+          <input type="username" id="username" name="username" required
+                 class="w-full px-4 py-3 bg-transparent border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-400"/>
+        </div>
+        <div>
+          <label for="password" class="block text-sm text-gray-300 mb-1">Password</label>
+          <input type="password" id="password" name="password" required
+                 class="w-full px-4 py-3 bg-transparent border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-400"/>
+        </div>
+        <button type="submit"
+                class="w-full py-3 mt-4 bg-teal-500 text-white font-semibold btn-hover transition duration-300">
+          Sign In
+        </button>
+        <div class="flex justify-between text-sm text-gray-400 mt-4">
+          <a href="#" class="hover:text-teal-300">Forgot password?</a>
+          <!-- <a href="#" class="hover:text-teal-300">Create account</a> -->
+           
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+</body>
+</html>
