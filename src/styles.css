@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.card {
+  /* Reduced background opacity for more transparency */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
+  /* Increased blur for a more frosted look */
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px); /* For Safari */
+  /* Made the border slightly more subtle */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05));
+  border-color: rgba(192, 132, 252, 0.8); /* Purple */
+  box-shadow: 0 0 5px rgba(192, 132, 252, 0.6), /* Purple */
+              0 0 15px rgba(192, 132, 252, 0.4), /* Purple */
+              inset 0 0 2px rgba(192, 132, 252, 0.8); /* Purple */
+  transform: translateY(-5px);
+}
