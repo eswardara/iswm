@@ -22,7 +22,61 @@
     .nav-link:hover::after {
       width: 100%;
     }
-    
+        :root {
+      --gradient-active: linear-gradient(135deg, #f8660f, #dc3d0d);
+    }
+
+    /* Tab button base */
+    .tab-btn {
+      position: relative;
+      padding: 0.55rem 1.25rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      transition: transform .2s ease, background .25s ease;
+    }
+
+    .tab-btn:hover {
+      transform: scale(1.03);
+    }
+
+    /* Active pill indicator */
+    #tab-indicator {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      border-radius: 0.5rem;
+      pointer-events: none;
+      transition: all .3s ease;
+      background: var(--gradient-active);
+      filter: drop-shadow(0 6px 16px rgba(248, 102, 15, 0.6));
+      z-index: 0;
+    }
+
+    /* Mobile menu collapse */
+    .mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease;
+    }
+
+    .mobile-menu.open {
+      max-height: 1000px;
+    }
+
+    /* Dropdown hover fallback */
+    .dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    /* Notification ping */
+    .animate-ping-slow {
+      animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
         </style>
     <script>
         tailwind.config = {
@@ -194,10 +248,216 @@
   </nav>
 
   <!-- Spacer -->
-  <div class="pt-28 text-center text-white">
+  <!-- <div class="pt-28 text-center text-white">
     <h2 class="text-3xl font-bold">ISWM Dashboard</h2>
     <p class="text-gray-400">Wide dropdowns applied. Fully responsive and animated.</p>
-  </div>
+  </div> -->
+<!-- tabs -->
+<!-- <nav class="bg-white/5 backdrop-blur-md shadow-lg border-b border-white/10 fixed top-0 w-full z-50 px-6 py-3"> -->
+  \
+
+      <!-- Middle: Tabs (desktop) -->
+      <div class="hidden md:flex relative flex-1 mx-6">
+        <div id="tabs-wrapper" class="relative flex gap-2 mt-20 w-full">
+          <!-- active indicator pill -->
+          <div id="tab-indicator"></div>
+
+          <!-- Tabs -->
+          <button class="tab-btn text-sm text-white relative z-10" data-target="gis-map">GIS Map</button>
+          <button class="tab-btn text-sm text-white relative z-10" data-target="fleet-map">Fleet Map</button>
+          <button class="tab-btn text-sm text-white relative z-10" data-target="sweeper-history">Sweeper History Map</button>
+          <button class="tab-btn text-sm text-white relative z-10" data-target="mokadam-history">Mokadam History Map</button>
+          <button class="tab-btn text-sm text-white relative z-10" data-target="cw-gis">CW GIS</button>
+          <button class="tab-btn text-sm text-white relative z-10" data-target="cw-pocket">CW Pocket Maps</button>
+          <button class="tab-btn text-sm text-white relative z-10" data-target="ct-pt-gis">CT PT GIS</button>
+          <button class="tab-btn text-sm text-white relative z-10" data-target="litter-bin">Litter Bin GIS</button>
+        </div>
+      </div>
+
+      <!-- Mobile menu toggle -->
+      <div class="md:hidden flex items-center gap-4">
+        <button id="mobile-menu-button" aria-expanded="false" class="p-2 rounded-md bg-white/10 text-white hover:bg-white/20 transition">
+          <i class="fa fa-bars text-lg"></i>
+        </button>
+      </div>
+
+     
+    <!-- Mobile Tabs / Collapsed -->
+    <div id="mobile-menu" class="mobile-menu md:hidden mt-3 px-4">
+      <div class="flex gap-2 flex-wrap relative">
+        <div id="tab-indicator-mobile" class="absolute top-0 left-0 h-full rounded-lg bg-gradient-to-r from-orange-500 to-yellow-400 transition-all"></div>
+        <button class="tab-btn text-xs text-white relative z-10" data-target="gis-map">GIS Map</button>
+        <button class="tab-btn text-xs text-white relative z-10" data-target="fleet-map">Fleet Map</button>
+        <button class="tab-btn text-xs text-white relative z-10" data-target="sweeper-history">Sweeper History</button>
+        <button class="tab-btn text-xs text-white relative z-10" data-target="mokadam-history">Mokadam History</button>
+        <button class="tab-btn text-xs text-white relative z-10" data-target="cw-gis">CW GIS</button>
+        <button class="tab-btn text-xs text-white relative z-10" data-target="cw-pocket">CW Pocket</button>
+        <button class="tab-btn text-xs text-white relative z-10" data-target="ct-pt-gis">CT PT GIS</button>
+        <button class="tab-btn text-xs text-white relative z-10" data-target="litter-bin">Litter Bin GIS</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Spacer so content is below fixed navbar -->
+  <div class="pt-10"></div>
+
+  <!-- Tab Content Panes -->
+  <div class="max-w-[1440px] mx-auto px-6">
+    <div id="tab-panes" class="space-y-6">
+      <!-- GIS Map -->
+      <div data-pane="gis-map" class="pane">
+        <div class="p-4 bg-[#1f2235] rounded-2xl shadow-lg">
+          <h2 class="text-xl font-semibold mb-2">GIS Map</h2>
+          <p class="text-gray-300">Placeholder content for GIS Map.</p>
+        </div>
+      </div>
+      <!-- Fleet Map -->
+      <div data-pane="fleet-map" class="pane hidden">
+        <div class="p-4 bg-[#1f2235] rounded-2xl shadow-lg">
+          <h2 class="text-xl font-semibold mb-2">Fleet Map</h2>
+          <p class="text-gray-300">Placeholder content for Fleet Map.</p>
+        </div>
+      </div>
+      <!-- Sweeper History -->
+      <div data-pane="sweeper-history" class="pane hidden">
+        <div class="p-4 bg-[#1f2235] rounded-2xl shadow-lg">
+          <h2 class="text-xl font-semibold mb-2">Sweeper History Map</h2>
+          <p class="text-gray-300">Placeholder content for Sweeper History.</p>
+        </div>
+      </div>
+      <!-- Mokadam History -->
+      <div data-pane="mokadam-history" class="pane hidden">
+        <div class="p-4 bg-[#1f2235] rounded-2xl shadow-lg">
+          <h2 class="text-xl font-semibold mb-2">Mokadam History Map</h2>
+          <p class="text-gray-300">Placeholder content for Mokadam History.</p>
+        </div>
+      </div>
+      <!-- CW GIS -->
+      <div data-pane="cw-gis" class="pane hidden">
+        <div class="p-4 bg-[#1f2235] rounded-2xl shadow-lg">
+          <h2 class="text-xl font-semibold mb-2">CW GIS</h2>
+          <p class="text-gray-300">Placeholder content for CW GIS.</p>
+        </div>
+      </div>
+      <!-- CW Pocket Maps -->
+      <div data-pane="cw-pocket" class="pane hidden">
+        <div class="p-4 bg-[#1f2235] rounded-2xl shadow-lg">
+          <h2 class="text-xl font-semibold mb-2">CW Pocket Maps</h2>
+          <p class="text-gray-300">Placeholder content for CW Pocket Maps.</p>
+        </div>
+      </div>
+      <!-- CT PT GIS -->
+      <div data-pane="ct-pt-gis" class="pane hidden">
+        <div class="p-4 bg-[#1f2235] rounded-2xl shadow-lg">
+          <h2 class="text-xl font-semibold mb-2">CT PT GIS</h2>
+          <p class="text-gray-300">Placeholder content for CT PT GIS.</p>
+        </div>
+      </div>
+      <!-- Litter Bin GIS -->
+      <div data-pane="litter-bin" class="pane hidden">
+        <div class="p-4 bg-[#1f2235] rounded-2xl shadow-lg">
+          <h2 class="text-xl font-semibold mb-2">Litter Bin GIS</h2>
+          <p class="text-gray-300">Placeholder content for Litter Bin GIS.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Existing dashboard content can go below -->
+    <div class="mt-10">
+      <div class="text-center text-white">
+        <h2 class="text-3xl font-bold">ISWM Dashboard</h2>
+        <p class="text-gray-400">Wide dropdowns applied. Fully responsive and animated.</p>
+      </div>
+
+  <!-- Sidebar (kept from original; you can reposition as needed) -->
+  <!-- For brevity the full sidebar markup is omitted here; you can paste your original sidebar under appropriate layout -->
+
+  <!-- Scripts -->
+  <script>
+    // Tab switching logic (desktop + mobile)
+    function activateTab(btn, containerIndicator, isMobile = false) {
+      const target = btn.dataset.target;
+      // Deactivate all buttons in same group
+      const group = btn.closest(isMobile ? '#mobile-menu' : '#tabs-wrapper');
+      if (!group) return;
+      group.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('text-white');
+        b.classList.add('text-gray-300');
+      });
+      btn.classList.remove('text-gray-300');
+      btn.classList.add('text-white');
+
+      // Move indicator
+      const indicator = containerIndicator;
+      const rect = btn.getBoundingClientRect();
+      const parentRect = group.getBoundingClientRect();
+      indicator.style.width = rect.width + 'px';
+      indicator.style.transform = `translateX(${rect.left - parentRect.left}px)`;
+
+      // Show corresponding pane
+      document.querySelectorAll('[data-pane]').forEach(p => {
+        if (p.dataset.pane === target) {
+          p.classList.remove('hidden');
+        } else {
+          p.classList.add('hidden');
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Desktop tabs
+      const desktopTabs = Array.from(document.querySelectorAll('#tabs-wrapper .tab-btn'));
+      const desktopIndicator = document.getElementById('tab-indicator');
+      if (desktopTabs.length && desktopIndicator) {
+        // initialize first active
+        activateTab(desktopTabs[0], desktopIndicator, false);
+        desktopTabs.forEach(btn => {
+          btn.addEventListener('click', () => activateTab(btn, desktopIndicator));
+        });
+        // adjust on resize
+        window.addEventListener('resize', () => {
+          const active = desktopTabs.find(b => b.classList.contains('text-white'));
+          if (active) activateTab(active, desktopIndicator);
+        });
+      }
+
+      // Mobile tabs
+      const mobileTabs = Array.from(document.querySelectorAll('#mobile-menu .tab-btn'));
+      const mobileIndicator = document.getElementById('tab-indicator-mobile');
+      if (mobileTabs.length && mobileIndicator) {
+        activateTab(mobileTabs[0], mobileIndicator, true);
+        mobileTabs.forEach(btn => {
+          btn.addEventListener('click', () => activateTab(btn, mobileIndicator, true));
+        });
+        window.addEventListener('resize', () => {
+          const active = mobileTabs.find(b => b.classList.contains('text-white'));
+          if (active) activateTab(active, mobileIndicator, true);
+        });
+      }
+
+      // Mobile menu toggle
+      const mobileToggle = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileToggle && mobileMenu) {
+        mobileToggle.addEventListener('click', () => {
+          const open = mobileMenu.classList.contains('open');
+          if (open) {
+            mobileMenu.classList.remove('open');
+            mobileToggle.setAttribute('aria-expanded', 'false');
+            mobileToggle.querySelector('i').classList.replace('fa-times', 'fa-bars');
+          } else {
+            mobileMenu.classList.add('open');
+            mobileToggle.setAttribute('aria-expanded', 'true');
+            mobileToggle.querySelector('i').classList.replace('fa-bars', 'fa-times');
+          }
+        });
+      }
+    });
+  </script>
+    <div class="pt-28 text-center text-white">
+    <h2 class="text-3xl font-bold">ISWM Dashboard</h2>
+    <p class="text-gray-400">Wide dropdowns applied. Fully responsive and animated.</p>
+  </div> 
     <!-- Main Content -->
     <!-- This is an example component -->
     <div class="flex flex-row h-full">
